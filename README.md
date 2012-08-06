@@ -31,7 +31,7 @@ Installation
 ------------
 
 with Composer :
-
+``` json
 {
     "repositories": [
         {
@@ -43,6 +43,7 @@ with Composer :
         "serard/Object4Method": "dev-master"
     }
 }
+```
 
 Usage
 -----
