@@ -12,6 +12,16 @@ You now can easily split them into their own objects.
 
 http://www.refactoring.com/catalog/replaceMethodWithMethodObject.html
 
+This project lets you split your methods into objects of their own.
+So you won't have any big methods with sub-methods spreading within your business-classes.
+
+You can define how to check parameters by passing a callable.
+
+Also, check the tests !
+
+If you want to contribute, feel free !
+
+
 Requirements
 ------------
 
@@ -58,7 +68,7 @@ class myLittleShinyClass {
 
     public function myLittleShinyMethod(array $params = array()) {
         $method = new \my\Namespaced\Method4Object\Class();
-        $method->execute($params);
+        return $method->execute($params)->getValue();
     }
 }
 ```
@@ -76,7 +86,8 @@ Option 1 : Externally Defined object
         new \se\Object4Method\ParameterDefinition('name', function($value) {
                                                                 return is_string($value) && strlen($value) > 1;
                                                                 //you can throw an exception here
-                                                            })
+                                                          }
+                                                )
     ));
     $method->setDefinition($definitions);
     $method->setDefaultParameters(array(
@@ -94,9 +105,12 @@ Option 1 : Externally Defined object
     });
 
     $method->execute(array('name' => 'James'));
-
+    $result = $method->getValue();
+    //you can re-execute the same method here, with different parameters !
+    $result = $method->execute(array('name' => 'John'))->getValue();
 ```
 
 Option 2 : Own-defining Object
 
     Look at tests/se/Dummy/DummyMethod.php
+
